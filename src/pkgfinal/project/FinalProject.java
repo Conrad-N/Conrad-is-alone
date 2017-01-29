@@ -3,13 +3,9 @@ package pkgfinal.project;
 import DLibX.DConsole;
 import java.awt.Color;
 import java.awt.geom.Point2D;
-import java.io.File;
 import java.util.*;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.Scanner;
+import javax.sound.sampled.*;
+import java.io.*;
 
 public class FinalProject {
 
@@ -142,6 +138,11 @@ public class FinalProject {
                 while (gameState == 4) { //Main game loop
                     drawPicture(dc, players.get(currentPlayer), "pixelForest");
 
+                    if (dc.getKeyPress(27)) {
+                        gameState = 0;
+                        playSound("button2");
+                    }
+
                     if (dc.getKeyPress('q')) {
                         currentPlayer--;
                         if (currentPlayer < 0) {
@@ -187,7 +188,7 @@ public class FinalProject {
                     players.get(currentPlayer).drawArrow(dc);
 
                     for (int i = 0; i < playersAtSaves.length; i++) {
-                        if (playersAtSaves[i] == 3) { //If any set of corresponding check points is filled let them save
+                        if (playersAtSaves[i] == 3) { //If any set of check points is filled let the player save
                             digits.clear();
                             for (int j = 0; j < 8; j++) {
                                 digits.add(new Digit(dc.getWidth() / 16 * (3 + i), 500, "button1", 'a', Color.WHITE, "Times New Roman", 30));
@@ -213,10 +214,63 @@ public class FinalProject {
                                 dc.redraw();
                                 dc.pause(20);
                             }
-                            
+                            gameState = 5;
+                            elements.clear();
+                            fileInputs.clear();
+                            fileInputs.add(new Scanner(new File("Saves/save1.txt")));
+                            fileInputs.add(new Scanner(new File("Saves/save2.txt")));
+                            fileInputs.add(new Scanner(new File("Saves/save3.txt")));
+                            elements.add(new MenuElement(dc.getWidth() / 2, 50, 0, 0, null, "Pick a game file to save over.", null, Color.BLACK, "Times New Roman", 50));
+                            elements.add(new MenuElement(dc.getWidth() / 4 * 1, 350, 180, 100, "button1", fileInputs.get(0).nextLine(), Color.CYAN, Color.BLACK, "Times New Roman", 40));
+                            elements.add(new MenuElement(dc.getWidth() / 4 * 2, 350, 180, 100, "button1", fileInputs.get(1).nextLine(), Color.CYAN, Color.BLACK, "Times New Roman", 40));
+                            elements.add(new MenuElement(dc.getWidth() / 4 * 3, 350, 180, 100, "button1", fileInputs.get(2).nextLine(), Color.CYAN, Color.BLACK, "Times New Roman", 40));
+
+                            String name = new String("");
+                            for (int j = 0; j < name.length(); j++) {
+                                name += digits.get(j).getChar();
+                            }
+                            while (gameState == 5) {
+                                mousePos.setLocation(dc.getMouseXPosition(), dc.getMouseYPosition());
+
+                                if (dc.getKeyPress(27)) {
+                                    gameState = 0;
+                                    playSound("button2");
+                                }
+
+                                elements.get(0).draw(dc, false);
+
+                                //Draws all the elements and goes into file writing things if they're clicked on
+                                for (int j = 1; j < 4; j++) {
+                                    elements.get(j).draw(dc, elements.get(j).isMousedOver(mousePos));
+                                    if (elements.get(j).isPressed(mousePos, dc.isMouseButton(1))) {
+                                        PrintStream fileOut = null;
+                                        try {
+                                            fileOut = new PrintStream(new File("Saves/save" + Integer.toString(i) + ".txt"));
+                                        } catch (FileNotFoundException e) {
+                                            e.getStackTrace();
+                                        }
+                                        fileOut.println(name);
+                                        fileOut.print(players.get(0).getX());
+                                        fileOut.print(players.get(0).getY());
+                                        fileOut.print(players.get(1).getX());
+                                        fileOut.print(players.get(1).getY());
+                                        fileOut.print(players.get(2).getX());
+                                        fileOut.print(players.get(2).getY());
+                                        gameState = 4;
+                                    }
+                                }
+
+                                dc.setOrigin(DConsole.ORIGIN_CENTER);
+                                dc.setPaint(Color.BLACK);
+                                dc.fillEllipse(mousePos.getX(), mousePos.getY(), 10, 10);
+
+                                dc.redraw();
+                                dc.pause(20);
+                                dc.clear();
+                            }
+
                         }
                     }
-
                     dc.redraw();
                     dc.pause(20);
                     dc.clear();
