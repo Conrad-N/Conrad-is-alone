@@ -32,6 +32,84 @@ public class FinalProject {
         savePoints.add(new SavePoint(1500, 650, 20, 20, 0));
         ArrayList<Player> players = new ArrayList<>();
 
+        
+        //ground level base is 750, starting point
+        //yellow jump is 125, he is 40 tall and 10 wide
+        //red jump is 40, he is 20 tall and 20 wide
+        //blue jump is 60 high, he is 15 tall and 30 wide
+        
+        structs.add(new Structure(0, 750, 1100, 100)); //bottom ground1
+        structs.add(new Structure(1000, 700, 700, 100)); //bottom ground 2
+
+        //first bit
+        
+        //the goal here is first you need all three on the thin structure, then you need to boost the blue one off of the yellow&red to get it to
+        //the highest platform.  Yellow and red do not need to get up there, they need to end on the thin platform
+        structs.add(new Structure(400, 680, 120, 15)); //first thin line, red cant reach alone
+        structs.add(new Structure(420, 680, 45, 53)); //only blue can go under block sicking down
+        structs.add(new Structure(460, 535, 50, 120)); //now yellow jumps on red (tall tall first block)
+        structs.add(new Structure(500, 730, 40, 20)); //box near the bottom under everything, if red falls off he boosts off blue
+        structs.add(new Structure(590, 660, 80, 10)); //box goal to get all 3 on of part 1
+        structs.add(new Structure(625, 660, 10, 125)); //pillar
+       
+        //part 2
+        structs.add(new Structure(350, 500, 75, 20)); //bottom of highest plat
+        structs.add(new Structure(350, 150, 75, 325)); //now only blue can go through
+        structs.add(new Structure(250, 535, 85, 10)); //bottom high skinny
+        structs.add(new Structure(175, 515, 50, 50)); //more to the left
+        structs.add(new Structure(250, 460, 35, 10)); //tiny plat
+        structs.add(new Structure(325, 410, 30, 65)); //side jump
+        structs.add(new Structure(260, 360, 10, 10));  //super tiny
+        structs.add(new Structure(340, 310, 10, 5)); //even smaller higher
+        structs.add(new Structure(255, 250, 25, 20)); //after that
+        structs.add(new Structure(325, 200, 100, 25)); //last jump'
+        structs.add(new Structure(120, 120, 45, 335)); //blocker of the left
+        structs.add(new Structure(120, 50, 100, 75));
+        //now your on top of that second structure of part two
+        
+        //part 3
+        structs.add(new Structure(510, 200, 200, 15));//right of high
+        structs.add(new Structure(800, 230, 150, 25)); //lower
+        structs.add(new Structure(690, 270, 200, 100)); //big fucking chunk
+        structs.add(new Structure(690, 400, 200, 320));
+        
+        structs.add(new Structure(620, 410, 30 ,30));//fist jump for yellow
+        structs.add(new Structure(470, 250, 75, 170));
+        
+        
+        //red ladder up
+        structs.add(new Structure(990, 740, 25, 10));
+        structs.add(new Structure(890, 710, 25, 10));
+        structs.add(new Structure(980, 680, 25, 10));
+        structs.add(new Structure(890, 650, 25, 10));
+        structs.add(new Structure(980, 620, 25, 10));
+        structs.add(new Structure(890, 590, 25, 10));
+        structs.add(new Structure(980, 560, 25, 10));
+        structs.add(new Structure(890, 530, 25, 10));
+        structs.add(new Structure(980, 500, 25, 10));
+        structs.add(new Structure(890, 470, 25, 10));
+        structs.add(new Structure(980, 440, 25, 10));
+        structs.add(new Structure(890, 410, 25, 10));
+        structs.add(new Structure(980, 380, 25, 10));
+        structs.add(new Structure(890, 350, 25, 10));
+        structs.add(new Structure(980, 320, 25, 10));
+        structs.add(new Structure(890, 290, 25, 10));
+        
+        
+        //End of Level 1 is when all
+        
+        structs.add(new Structure(1000, 300, 200, 400));
+                
+        structs.add(new Structure(995, 730, 10, 50)); //tiny abract ledge for red
+        
+        structs.add(new Structure(1000, 740, 76, 50)); //first lump near hole
+        structs.add(new Structure(-500, 0, 505, 900)); //Behind you
+        structs.add(new Structure(0, 0, 5000, 60)); //roof
+        
+        
+        
+        structs.add(new Structure(1000, 705, 75, 50));
+        
         int gameState = 0;
         int currentPlayer = 0;
         int[] playersAtSaves = new int[3];
