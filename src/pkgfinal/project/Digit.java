@@ -34,9 +34,15 @@ public class Digit {
     public void changeChar(DConsole dc) {
         if (dc.getKeyPress(38)) {
             this.character++;
+            if (this.character < 'A') {
+                this.character = 'A';
+            }
             playSound(this.sound);
         } else if (dc.getKeyPress(40)) {
             this.character--;
+            if (this.character > 'z') {
+                this.character = 'z';
+            }
             playSound(this.sound);
         }
     }
